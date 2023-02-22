@@ -102,7 +102,7 @@ const server = http.createServer((req, res) => {
 
            console.log(body);
 
-           curr_temperature = Number(body);
+           curr_temperature = body;// the value pass to res.end should be a string;
            //res.end('ok');
         });
     }
