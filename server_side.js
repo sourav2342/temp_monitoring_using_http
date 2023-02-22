@@ -36,7 +36,7 @@ app.post('/path', (req, res) => {
 
 app.listen(3000, () => {
     console.log('Server running on port 3000')
-});*/
+});
 
 //////////////////////////////////////////
 
@@ -58,4 +58,57 @@ var server = http.createServer(function (req, res) {
 });
 
 server.listen(80);
-console.log("Server is listening");
+console.log("Server is listening");*/
+
+
+
+var curr_temperature='12';
+
+const http = require('http');
+const fs = require('fs');
+
+const server = http.createServer((req, res) => {
+
+
+  if (req.url === '/') {
+
+    fs.readFile('html&css/index.html', (err, data) => {
+
+      if (err) {
+        res.writeHead(500, {'Content-Type': 'text/plain'});
+        res.end('Error loading index.html');
+      }
+       else {
+        res.writeHead(200, {'Content-Type': 'text/html'});
+        res.end(data);
+      }
+
+    });
+  }
+
+  if(req.url === '/value'){
+
+    const value = 12; // the value you want to send
+    res.end(curr_temperature);
+
+  }
+  
+  if (req.method === 'POST' && req.url === '/post_data') {
+        let body = '';
+        req.on('data', function (data) {
+            body += data;
+        });
+        req.on('end', function () {
+
+           console.log(body);
+
+           curr_temperature = Number(body);
+           //res.end('ok');
+        });
+    }
+
+});
+
+server.listen(3000, () => {
+  console.log('Server listening on port 3000');
+});
