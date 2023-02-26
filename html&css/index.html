@@ -4,7 +4,7 @@
 	<title>Value Display</title>
 </head>
 <body>
-	<h1>The value is:</h1>
+	<h1 id = "val">0</h1>
 
 	<!--<script>
 		fetch('http:localhost:3000/value')
@@ -49,8 +49,10 @@
 	          let i = 10;
 
 	         //fetch('https://web-interface.onrender.com:3000/data').then(response => response.text()).then(data => {yVal = Number(data);}).catch(error => console.error(error));
-					 fetch('https://iot-temp-monitoring.onrender.com:3000/value').then(response => response.text()).then(data => {yVal = Number(data); })
-						 .catch(error => console.error(error));
+					 //fetch('https://iot-temp-monitoring.onrender.com:3000/value').then(response => response.text()).then(data => {yVal = Number(data); })
+						// .catch(error => console.error(error));
+		
+		 yVal = Number(document.getElementById("val").textContent);
 
 	          dps.push({x:xVal,y:yVal});
 
