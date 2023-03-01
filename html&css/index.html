@@ -49,10 +49,10 @@
 	          let i = 10;
 
 	         //fetch('https://web-interface.onrender.com:3000/data').then(response => response.text()).then(data => {yVal = Number(data);}).catch(error => console.error(error));
-					 //fetch('https://iot-temp-monitoring.onrender.com:3000/value').then(response => response.text()).then(data => {yVal = Number(data); })
-						// .catch(error => console.error(error));
+					 fetch('https://iot-temp-monitoring.onrender.com/value').then(response => response.text()).then(data => {yVal = Number(data); })
+						 .catch(error => console.error(error));
 		
-		 yVal = Number(document.getElementById("val").textContent);
+		 
 
 	          dps.push({x:xVal,y:yVal});
 
