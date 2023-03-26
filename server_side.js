@@ -60,7 +60,9 @@ var server = http.createServer(function (req, res) {
 server.listen(80);
 console.log("Server is listening");*/
 
+const express = require("express");
 
+const app = express();
 
 var curr_temperature='12';
 
@@ -108,6 +110,15 @@ const server = http.createServer((req, res) => {
     }
 
 });
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
 
 server.listen(3000, () => {
   console.log('Server listening on port 3000');
