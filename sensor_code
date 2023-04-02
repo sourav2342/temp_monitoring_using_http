@@ -79,7 +79,7 @@ void loop() {
     Serial.println("Connected to server!");
     // Make a HTTP request:
     client.println("POST  https://iot-temp-monitoring.onrender.com/post_data HTTP/1.1");
-    client.println("Host: iot-temp-monitoring.onrender.com.cdn.cloudflare.net.");
+    client.println("Host: iot-temp-monitoring.onrender.com.cdn.cloudflare.net."); // to find host of a website open terminal and run nslookup domain name.
     client.println("content-length:"+ String(requestBody.length()));
     client.println("Connection: close");
     client.println();
