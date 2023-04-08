@@ -1,28 +1,89 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Value Display</title>
+	 <title>temperature monitoring</title>
 </head>
 <body>
 
 			
-		
 	
 	
-	<h1 id = "val">0</h1>
+	
+	<div id="wrap">
+      <div class="container">
 
-	<!--<script>
-		fetch('http:localhost:3000/value')
-			.then(response => response.text())
-			.then(data => {
-				console.log(Number(data));
-			})
-			.catch(error => console.error(error));
-	</script>-->
-	<script type="text/javascript">
-				var dps = [{x: 1, y: 10}, {x: 2, y: 13}, {x: 3, y: 18}, {x: 4, y: 20}, {x: 5, y: 17},{x: 6, y: 10}, {x: 7, y: 13}, {x: 8, y: 18}, {x: 9, y: 20}, {x: 10, y: 17}];   //dataPoints.
-	</script>
-<div class="window">
+        <h1 class= "title">Temperature Monitor</h1>
+        <div class="row">
+
+              <ul class="nav-tabs">
+                <li class="view">
+                <a href="#" id= "link_to_view_graph">Graph</a>
+                </li>
+                <li >
+                <a href="" id= "Link_to_key_generator">API key</a>
+                </li>
+                <li >
+                <a href="" id= "link_to_Settings">Channel Settings</a>
+                </li>
+
+
+              </ul>
+              <hr>
+
+        </div>
+
+        <div class="col_space">
+
+          <div class="row">
+
+            <h2>Status</h2>
+            <ul class="info">
+
+              <li>
+                Modified:
+                <abbr class="time_ago_modified" title="2023-01-26T08:41:46Z"> </abbr>
+              </li>
+
+              <li>
+                Entries:
+                <span id="entry_cnt"></span>
+              </li>
+
+            </ul>
+
+          </div>
+
+
+
+        </div>
+
+        <div class="row">
+
+          <div class="colum">
+
+            <div class="window_container">
+
+                <div class="window_header">
+                  <div class="window_title" title="Plot 1">
+
+                  </div>
+
+                  <div class="window_file" id="export_file">
+                      <div id="export_button">
+                         <button type="button" name="button">Export Data</button>
+                      </div>
+
+                  </div>
+
+          <div class="window" id="plot">
+	
+            <script type="text/javascript">
+				var dps = [{x: 1, y: 30}, {x: 2, y: 31}, {x: 3, y:32 }, {x: 4, y: 30}, {x: 5, y: 31},
+					   {x: 6, y: 31}, {x: 7, y: 31}, {x: 8, y: 31}, {x: 9, y: 31}, {x: 10, y: 32} ,
+					   {x: 11, y: 31}, {x: 12, y: 31}, {x: 13, y: 32}];   //dataPoints.
+	    </script>
+		  
+       <div class="window">
 
 	  	<script type="text/javascript">
 	  	window.onload = function () {
@@ -33,10 +94,10 @@
 	        		text: "Live Data"
 	        	},
 	        	axisX: {
-	        		title: "Axis X Title"
+	        		title: "Time-interval"
 	        	},
 	        	axisY: {
-	        		title: "Units"
+	        		title: "temperature"
 	        	},
 	        	data: [{
 	        		type: "line",
@@ -54,7 +115,7 @@
 	          let i = 10;
 
 	         //fetch('https://web-interface.onrender.com:3000/data').then(response => response.text()).then(data => {yVal = Number(data);}).catch(error => console.error(error));
-					 fetch('https://iot-temp-monitoring.onrender.com/value').then(response => response.text()).then(data => {yVal = Number(data); })
+	         fetch('https://iot-temp-monitoring.onrender.com/value').then(response => response.text()).then(data => {yVal = Number(data); })
 						 .catch(error => console.error(error));
 		
 		 
@@ -77,12 +138,19 @@
 	  }
 	  </script>
 	  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-		<div id="chartContainer" style="height: 300px; width: 40%;"></div>
+	  <div id="chartContainer" style="height: 300px; width: 40%;"></div>
+        </div> // end of window
+	 </div>//end of plot
+	 </div>
+              </div>
 
-		</div>
+          </div>
 
+        </div>
 
+      </div>
 
+    </div>
 
 
 </body>
