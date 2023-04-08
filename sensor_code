@@ -1,13 +1,21 @@
 #include <WiFiClientSecure.h>
 
-const char* ssid = "Redi";  // Enter SSID here
-const char* password = "Sour";//.. passwordf wifi network)
+#include "DHT.h"
+
+#define DHTTYPE DHT11 
+
+uint8_t DHTPin = 2; 
+
+
+int Temperature;
+
+DHT dht(DHTPin, DHTTYPE);
+
+const char* ssid = "Redmi";  // Enter SSID here
+const char* password = "Souravr232";//.. passwordf wifi network)
 
 const char*  server = "https://iot-temp-monitoring.onrender.com";  // Server URL https://iot-temp-monitoring.onrender.com/
 
-// www.howsmyssl.com root certificate authority, to verify the server
-// change it to your server root CA
-// SHA1 fingerprint is broken now!
 
 
 const char* test_root_ca= \
@@ -35,10 +43,6 @@ const char* test_root_ca= \
 
 
 
-// You can use x.509 client certificates if you want
-//const char* test_client_key = "";   //to verify the client
-//const char* test_client_cert = "";  //to verify the client
-
 
 WiFiClientSecure client;
 
@@ -46,15 +50,17 @@ void setup() {
   //Initialize serial and wait for port to open:
   Serial.begin(115200);
   delay(1000);
+  pinMode(DHTPin, INPUT);
+  dht.begin();
 
   Serial.print("Attempting to connect to SSID: ");
   Serial.println(ssid);
   WiFi.begin(ssid, password);
 
-  // attempt to connect to Wifi network:
+  
   while (WiFi.status() != WL_CONNECTED) {
     Serial.print(".");
-    // wait 1 second for re-trying
+ 
     delay(1000);
   }
 
@@ -65,21 +71,25 @@ void setup() {
 }
 
 void loop() {
-  // do nothing
+
+  Temperature = dht.readTemperature();
+  Serial.println("Temperature : "+String(Temperature));
+  String requestBody = String(Temperature);
+  
+  delay(1000);
+  
   client.setInsecure();
-  String requestBody = "212";
-//  client.setCACert(test_root_ca);
-  //client.setCertificate(test_client_cert); // for client verification
-  //client.setPrivateKey(test_client_key);  // for client verification
+ 
+
 
   Serial.println("\nStarting connection to server...");
   if (!client.connect(server, 443))
     Serial.println("Connection failed!");
   else {
-    Serial.println("Connected to server!");
+    Serial.println("Connected to server!");//https://web-interface.onrender.com
     // Make a HTTP request:
     client.println("POST  https://iot-temp-monitoring.onrender.com/post_data HTTP/1.1");
-    client.println("Host: iot-temp-monitoring.onrender.com.cdn.cloudflare.net."); // to find host of a website open terminal and run nslookup domain name.
+    client.println("Host: iot-temp-monitoring.onrender.com.cdn.cloudflare.net.");
     client.println("content-length:"+ String(requestBody.length()));
     client.println("Connection: close");
     client.println();
@@ -103,5 +113,7 @@ void loop() {
     client.stop();
   }
 
-  delay(2000);
+  delay(1000);
+
+  
 }
